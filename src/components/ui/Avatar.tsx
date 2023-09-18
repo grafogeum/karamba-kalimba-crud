@@ -15,6 +15,7 @@ const AvatarWrapper = styled.div<AvatarProps>`
   background-position: center;
 `;
 
-export const Avatar: React.FC<AvatarProps> = ({ imageUrl = "https://picsum.photos/50/50" }) => {
+export const Avatar: React.FC<AvatarProps> = ({ imageUrl }) => {
+  imageUrl = imageUrl || "https://picsum.photos/50/50";
   return <AvatarWrapper imageUrl={imageUrl}></AvatarWrapper>;
 };

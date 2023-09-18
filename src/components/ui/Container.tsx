@@ -7,11 +7,9 @@ const ContainerStyled = styled.div`
   width: 100%;
 `;
 
-export const Container: FC = ({ children }) => {
-  return <ContainerStyled>{children}</ContainerStyled>;
-};
+export const Container: FC = ({ children }) => <ContainerStyled>{children}</ContainerStyled>;
 
-const ContainerStretchedStyled = styled.div`
+export const ContainerStretchedStyled = styled.div`
   display: flex;
   justify-content: space-between;
   height: 100%;
@@ -19,9 +17,7 @@ const ContainerStretchedStyled = styled.div`
   padding: 1rem;
 `;
 
-export const ContainerStretched: FC = ({ children }) => {
-  return <ContainerStretchedStyled>{children}</ContainerStretchedStyled>;
-};
+export const ContainerStretched: FC = ({ children }) => <ContainerStretchedStyled>{children}</ContainerStretchedStyled>;
 
 const LabelStyled = styled.div`
   display: flex;
@@ -32,6 +28,4 @@ const LabelStyled = styled.div`
   padding: 5px;
 `;
 
-export const Label: FC = ({ children }) => {
-  return <LabelStyled>{children}</LabelStyled>;
-};
+export const Label: FC = ({ children }) => <LabelStyled>{children}</LabelStyled>;

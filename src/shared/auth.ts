@@ -25,7 +25,7 @@ export const authUser = (formData: FormDataProps): Promise<void> =>
     .then(data => {
       const { token } = data.user;
       localStorage.setItem("jwtToken", token);
-      console.log("Rejestracja zakończona pomyślnie:");
+      alert("Logged in successfully");
     })
     .catch(error => {
       console.error("Wystąpił problem z żądaniem:", error);

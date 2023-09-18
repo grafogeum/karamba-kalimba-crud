@@ -10,7 +10,6 @@ export interface ArticleProps {
   title: string;
   updatedAt: string;
 }
-[];
 
 interface Author {
   bio: string;
@@ -29,4 +28,11 @@ export type FormDataProps = {
   email: string;
   username: string;
   password: string;
+};
+
+export type AuthorProfile = {
+  username: string;
+  bio: string;
+  image: string;
+  following: boolean;
 };
