@@ -9,10 +9,11 @@ import {
   followProfileAPI,
   unFollowProfileAPI,
 } from "../api/apiActions";
-import { ArticleProps } from "../constants/types";
+import { ArticleProps, AuthorProfile } from "../constants/types";
 
-export function useArticleList() {
+export function useAPIActions() {
   const [articlesList, setArticlesList] = useState<ArticleProps[]>([]);
+  const [authorProfile, setAuthorProfile] = useState<AuthorProfile | void>();
 
   const fetchData = useCallback(async () => {
     try {
@@ -54,8 +55,7 @@ export function useArticleList() {
   const fetchUserProfile = useCallback(async username => {
     try {
       const profileData = await fetchDataProfileAPI(username);
-      console.log(profileData);
-      // setProfile(profileData);
+      setAuthorProfile(profileData);
     } catch (error) {
       handleFetchError(error);
     }
@@ -79,10 +79,9 @@ export function useArticleList() {
 
   return {
     articlesList,
-    fetchData,
     handleAddToFavorite,
     favoriteArticleRemove,
-    fetchUserProfile,
+    authorProfile,
     followProfile,
     unFollowProfile,
   };

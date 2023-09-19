@@ -1,5 +1,5 @@
 import { API_URL, API_URL_PROFILES } from "../constants/constants";
-import { ArticleProps } from "../constants/types";
+import { ArticleProps, AuthorProfile } from "../constants/types";
 
 export const fetchDataArticles = async (): Promise<ArticleProps[]> =>
   (await fetch(API_URL)).json().then(({ articles }) => articles);
@@ -32,8 +32,6 @@ export const favoriteArticleRemoveAPI = async (slug: string): Promise<void> => {
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
-    } else {
-      fetchDataArticles();
     }
   } catch (error) {
     handleFetchError(error);
@@ -59,8 +57,6 @@ export const handleAddToFavoriteAPI = async (slug: string): Promise<void> => {
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
-    } else {
-      fetchDataArticles();
     }
   } catch (error) {
     handleFetchError(error);
@@ -69,7 +65,7 @@ export const handleAddToFavoriteAPI = async (slug: string): Promise<void> => {
 
 // PROFILE ACTIONS
 
-export const fetchDataProfileAPI = async (username: string): Promise<void> => {
+export const fetchDataProfileAPI = async (username: string): Promise<AuthorProfile | void> => {
   const url = `${API_URL_PROFILES}/${username}`;
 
   try {
@@ -105,8 +101,6 @@ export const followProfileAPI = async (username: string): Promise<void> => {
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
-    } else {
-      fetchDataArticles();
     }
   } catch (error) {
     handleFetchError(error);
@@ -133,8 +127,6 @@ export const unFollowProfileAPI = async (username: string): Promise<void> => {
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
-    } else {
-      fetchDataArticles();
     }
   } catch (error) {
     handleFetchError(error);

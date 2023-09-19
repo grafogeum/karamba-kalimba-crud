@@ -11,12 +11,12 @@ export interface ArticleProps {
   updatedAt: string;
 }
 
-interface Author {
+export type Author = {
   bio: string;
   following: boolean;
   image: string;
   username: string;
-}
+};
 
 export type ArticlePostProps = Pick<
   ArticleProps,

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Container, ContainerStretched, Label } from "../ui";
-import { useArticleList } from "../../hooks/useArticleList";
+import { useAPIActions } from "../../hooks/useAPIActions";
 import styled from "@emotion/styled";
+import { useArticleContext } from "./ArticlesContext";
 
 const Card = styled.div`
   background-color: #fff;
@@ -25,8 +26,9 @@ const Description = styled.p`
 
 export const ArticleDetails = (): JSX.Element => {
   const { slug } = useParams<{ slug: string }>();
-  const { articlesList, handleAddToFavorite, favoriteArticleRemove } = useArticleList();
-  const selectedArticle = articlesList.find(article => article.slug === slug);
+  const { articlesList, handleAddToFavorite, favoriteArticleRemove } = useArticleContext();
+
+  const selectedArticle = articlesList?.find(article => article.slug === slug);
   const { title, description, author, createdAt, favorited, favoritesCount } = selectedArticle || {};
   const { username } = author || {};
   const [isFavorite, setIsFavorite] = useState(!!favorited);
