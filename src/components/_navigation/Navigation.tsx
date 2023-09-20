@@ -9,28 +9,17 @@ export const ULStyled = styled.ul`
   margin: 0;
 `;
 
+const paths = ["Home", "Editor", "Login", "Logout", "Profile", "Settings"];
+
 export const Navigator = (): JSX.Element => (
   <nav>
     <ULStyled>
       <ContainerStretched>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/editor">Editor</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/logout">Logout</Link>
-        </li>
-        <li>
-          <Link to="/profile">Profile</Link>
-        </li>
-        <li>
-          <Link to="/settings">Settings</Link>
-        </li>
+        {paths.map(path => (
+          <li key={path}>
+            <Link to={`/${path.toLowerCase()}`}>{path}</Link>
+          </li>
+        ))}
       </ContainerStretched>
     </ULStyled>
   </nav>
