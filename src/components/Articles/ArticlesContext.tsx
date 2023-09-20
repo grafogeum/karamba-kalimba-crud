@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from "react";
 import { ArticlePostProps, ArticleProps } from "../../constants/types";
-import { useAPIActions } from "../../hooks/useAPIActions";
+import { useAPIActions } from "../hooks/useAPIActions";
 
 export const ArticleContext = createContext<
   | {

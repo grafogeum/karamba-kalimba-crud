@@ -50,6 +50,30 @@ export const SwitchButton = {
   color: "#000",
 };
 
+interface FormFieldProps {
+  label: string;
+  name: string;
+  type: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string | boolean;
+}
+
+function FormField({ label, name, type, value, onChange, error }: FormFieldProps) {
+  return (
+    <FormGroup>
+      <Label>{label}:</Label>
+      <Input type={type} name={name} value={value} onChange={onChange} />
+      {error && <span>{error}</span>}
+    </FormGroup>
+  );
+}
+
+export const formFields = [
+  { label: "Email", name: "email", type: "email" },
+  { label: "Hasło", name: "password", type: "password" },
+];
+
 const AuthForm = () => {
   const [formData, setFormData] = useState({
     isLogin: true,
@@ -113,16 +137,14 @@ const AuthForm = () => {
       password: "",
     };
 
-    if (!formData.email) {
-      newErrors.email = FormDataMessages.Email;
-    }
+    const requiredFields = ["email", "password"];
+    !formData.isLogin && requiredFields.push("username");
 
-    if (!formData.password) {
-      newErrors.password = FormDataMessages.Password;
-    }
-
-    if (!formData.isLogin && !formData.username) {
-      newErrors.username = FormDataMessages.Username;
+    for (const field of requiredFields) {
+      if (!formData[field as keyof typeof formData]) {
+        newErrors[field as keyof typeof newErrors] =
+          FormDataMessages[(field.charAt(0).toUpperCase() + field.slice(1)) as keyof typeof FormDataMessages];
+      }
     }
 
     setErrors(newErrors);
@@ -133,28 +155,33 @@ const AuthForm = () => {
       <AuthTitle>{formData.isLogin ? "Logowanie" : "Rejestracja"}</AuthTitle>
       <form onSubmit={handleSubmit}>
         {!formData.isLogin && (
-          <FormGroup>
-            <Label>Nazwa użytkownika:</Label>
-            <Input type="text" name="username" value={formData.username} onChange={handleChange} />
-            {errors.username && <span>{errors.username}</span>}
-          </FormGroup>
+          <FormField
+            label={"User Name"}
+            name={"username"}
+            type={"text"}
+            value={formData.username}
+            onChange={handleChange}
+            error={errors.username}
+          />
         )}
-        <FormGroup>
-          <Label>Email:</Label>
-          <Input type="email" name="email" value={formData.email} onChange={handleChange} />
-          {errors.email && <span>{errors.email}</span>}
-        </FormGroup>
-        <FormGroup>
-          <Label>Hasło:</Label>
-          <Input type="password" name="password" value={formData.password} onChange={handleChange} />
-          {errors.password && <span>{errors.password}</span>}
-        </FormGroup>
+        {formFields.map(field => (
+          <FormField
+            key={field.name}
+            label={field.label}
+            name={field.name}
+            type={field.type}
+            value={String(formData[field.name as keyof typeof formData])}
+            onChange={handleChange}
+            error={
+              typeof formData[field.name as keyof typeof formData] === "boolean"
+                ? formData[field.name as keyof typeof formData]
+                : errors[field.name as keyof typeof errors]
+            }
+          />
+        ))}
         <Button type="submit" onClick={() => handleLogin(formData)} style={LoginButton}>
           {formData.isLogin ? "Zaloguj" : "Zarejestruj"}
         </Button>
-        {/* <Button type="submit" onClick={handleLogin} style={LoginButton}>
-          {formData.isLogin ? "Zaloguj" : "Zarejestruj"}
-        </Button> */}
       </form>
       <Button onClick={toggleAuthMode} style={SwitchButton}>
         {formData.isLogin ? "Przejdź do rejestracji" : "Przejdź do logowania"}

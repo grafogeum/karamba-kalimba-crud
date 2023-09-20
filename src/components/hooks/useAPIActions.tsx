@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { parseDatesInArticles } from "../helpers/helpers";
+import { parseDatesInArticles } from "../../helpers/helpers";
 import {
   fetchDataArticles,
   handleFetchError,
@@ -8,8 +8,8 @@ import {
   fetchDataProfileAPI,
   followProfileAPI,
   unFollowProfileAPI,
-} from "../api/apiActions";
-import { ArticleProps, AuthorProfile } from "../constants/types";
+} from "../../api/apiActions";
+import { ArticleProps, AuthorProfile } from "../../constants/types";
 
 export function useAPIActions() {
   const [articlesList, setArticlesList] = useState<ArticleProps[]>([]);

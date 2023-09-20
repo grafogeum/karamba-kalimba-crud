@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Container, ContainerStretched, Label } from "../ui";
-import { useAPIActions } from "../../hooks/useAPIActions";
+import { useAPIActions } from "../hooks/useAPIActions";
 import styled from "@emotion/styled";
 import { useArticleContext } from "./ArticlesContext";
 
